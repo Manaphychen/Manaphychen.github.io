@@ -1,9 +1,8 @@
 /**
  * 提示：如您想使用JS版本的配置文件可参考：https://github.com/xugaoyi/vuepress-theme-vdoing/tree/a2f03e993dd2f2a3afdc57cf72adfc6f1b6b0c32/docs/.vuepress
  */
-import { resolve } from 'path'
-import { defineConfig4CustomTheme, UserPlugins } from 'vuepress/config'
-import { VdoingThemeConfig } from 'vuepress-theme-vdoing/types'
+import {defineConfig4CustomTheme, UserPlugins} from 'vuepress/config'
+import {VdoingThemeConfig} from 'vuepress-theme-vdoing/types'
 // @ts-ignore
 import dayjs from 'dayjs'
 import baiduCode from './config/baiduCode' // 百度统计hm码
@@ -29,7 +28,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
   themeConfig: {
     // 导航配置
     nav: [
-      { text: '首页', link: '/' },
+      {text: '首页', link: '/'},
       {
         text: '后端',
         link: '/java/', //目录页链接，此处link是vdoing主题新增的配置项，有二级导航时，可以点击一级导航跳到目录页
@@ -38,7 +37,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
           {
             text: '设计模式',
             items: [
-              { text: '设计模式汇总', link: '/design_pattern/summary/' },
+              {text: '设计模式汇总', link: '/design_pattern/summary/'},
             ],
           },
         ],
@@ -47,29 +46,45 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         text: '页面',
         link: '/ui/',
         items: [
-          { text: 'HTML', link: '/pages/8309a5b876fc95e3/' },
-          { text: 'CSS', link: '/pages/0a83b083bdf257cb/' },
+          {text: 'HTML', link: '/pages/8309a5b876fc95e3/'},
+          {text: 'CSS', link: '/pages/0a83b083bdf257cb/'},
         ],
       },
       {
         text: '技术书籍',
         link: '/technology/',
         items: [
-          { text: '《高效java》', link: '/Chapter-2/Introduction.html' },
-          { text: '《ES6tutorial》', link: '/es6/introduction/' },
+          {
+            text: '《高效java》',
+            link: '/books/',
+            items: [
+              {text: '创建和销毁对象', link: '/Chapter-2/Introduction.html'},
+              {text: '对象的通用方法', link: '/Chapter-3/Introduction.html'},
+              {text: '类和接口', link: '/Chapter-4/Introduction.html'},
+              {text: '泛型', link: '/Chapter-5/Introduction.html'},
+              {text: '枚举和注解', link: '/Chapter-6/Introduction.html'},
+              {text: 'λ表达式和流', link: '/Chapter-7/Introduction.html'},
+              {text: '方法', link: '/Chapter-8/Introduction.html'},
+              {text: '通用程序设计', link: '/Chapter-9/Introduction.html'},
+              {text: '异常', link: '/Chapter-10/Introduction.html'},
+              {text: '并发', link: '/Chapter-11/Introduction.html'},
+              {text: '序列化', link: '/Chapter-12/Introduction.html'},
+            ]
+          },
+          {text: '《ES6tutorial》', link: '/es6/introduction/'},
         ],
       },
       {
         text: '更多',
         link: '/more/',
         items: [
-          { text: '学习', link: '/pages/f2a556/' },
-          { text: '面试', link: '/pages/aea6571b7a8bae86/' },
-          { text: '心情杂货', link: '/pages/2d615df9a36a98ed/' },
-          { text: '实用技巧', link: '/pages/baaa02/' },
+          {text: '学习', link: '/pages/f2a556/'},
+          {text: '面试', link: '/pages/aea6571b7a8bae86/'},
+          {text: '心情杂货', link: '/pages/2d615df9a36a98ed/'},
+          {text: '实用技巧', link: '/pages/baaa02/'},
         ],
       },
-      { text: '关于', link: '/about/' },
+      {text: '关于', link: '/about/'},
       {
         text: '收藏',
         link: '/pages/beb6c0bd8a66cea6/',
@@ -83,9 +98,9 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         text: '索引',
         link: '/archives/',
         items: [
-          { text: '分类', link: '/categories/' },
-          { text: '标签', link: '/tags/' },
-          { text: '归档', link: '/archives/' },
+          {text: '分类', link: '/categories/'},
+          {text: '标签', link: '/tags/'},
+          {text: '归档', link: '/archives/'},
         ],
       },
     ],
@@ -192,7 +207,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
 
   // 注入到页面<head>中的标签，格式[tagName, { attrName: attrValue }, innerHTML?]
   head: [
-    ['link', { rel: 'icon', href: '/img/favicon.ico' }], //favicons，资源放在public文件夹
+    ['link', {rel: 'icon', href: '/img/favicon.ico'}], //favicons，资源放在public文件夹
     [
       'meta',
       {
@@ -201,7 +216,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
       },
     ],
     // ['meta', { name: 'baidu-site-verification', content: '7F55weZDDc' }], // 百度统计的站长验证（你可以去掉）
-    ['meta', { name: 'theme-color', content: '#11a8cd' }], // 移动浏览器主题颜色
+    ['meta', {name: 'theme-color', content: '#11a8cd'}], // 移动浏览器主题颜色
     // [
     //   'script',
     //   {
