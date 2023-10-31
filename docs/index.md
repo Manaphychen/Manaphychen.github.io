@@ -89,6 +89,6 @@ features: # 可选的
 
 - **WeChat or QQ**: <a href="tencent://message/?uin=535395726&Site=&Menu=yesUrl" class='qq'>535395726</a>
 - **Email**: <a href="mailto:535395726@qq.com">535395726@qq.com</a>
-- **GitHub**: <https://github.com/xugaoyi>
+- **GitHub**: <https://github.com/ManaphyChen>
 
 </br>  -->
