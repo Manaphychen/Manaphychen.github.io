@@ -40,6 +40,12 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
               {text: '设计模式汇总', link: '/design_pattern/summary/'},
             ],
           },
+          {
+            text: 'JVM虚拟机',
+            items: [
+              {text: 'JVM内存', link: '/jvm/index/'},
+            ],
+          },
         ],
       },
       {
@@ -53,7 +59,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
       },
       {
         text: '技术书籍',
-        link: '/technology/',
+        link: '/books/',
         items: [
           {
             text: '《高效java》',
@@ -103,7 +109,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
     lastUpdated: '上次更新', // 开启更新时间，并配置前缀文字   string | boolean (取值为git提交时间)
     docsDir: 'docs', // 编辑的文件夹
     // docsBranch: 'master', // 编辑的文件所在分支，默认master。 注意：如果你的分支是main则修改为main
-    editLinks: true, // 启用编辑
+    editLinks: false, // 启用编辑
     editLinkText: '编辑',
 
     //*** 以下是Vdoing主题相关配置，文档：https://doc.xugaoyi.com/pages/a20ce8/ ***//
@@ -129,10 +135,10 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
     // ],
     // contentBgStyle: 1, // 文章内容块的背景风格，默认无. 1 方格 | 2 横线 | 3 竖线 | 4 左斜线 | 5 右斜线 | 6 点状
 
-    // updateBar: { // 最近更新栏
-    //   showToArticle: true, // 显示到文章页底部，默认true
-    //   moreArticle: '/archives' // “更多文章”跳转的页面，默认'/archives'
-    // },
+    updateBar: { // 最近更新栏
+      showToArticle: false, // 显示到文章页底部，默认true
+      moreArticle: '/archives' // “更多文章”跳转的页面，默认'/archives'
+    },
     // rightMenuBar: false, // 是否显示右侧文章大纲栏，默认true (屏宽小于1300px下无论如何都不显示)
     // sidebarOpen: false, // 初始状态是否打开左侧边栏，默认true
     // pageButton: false, // 是否显示快捷翻页按钮，默认true
@@ -204,10 +210,9 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
       'meta',
       {
         name: 'keywords',
-        content: '前端博客,个人技术博客,后端,后端开发,后端框架,技术文档,学习,面试,Java,git,github,markdown',
+        content: '个人技术博客,后端,后端开发,后端框架,技术文档,学习,面试,Java,git,github,markdown',
       },
     ],
-    // ['meta', { name: 'baidu-site-verification', content: '7F55weZDDc' }], // 百度统计的站长验证（你可以去掉）
     ['meta', {name: 'theme-color', content: '#11a8cd'}], // 移动浏览器主题颜色
     // [
     //   'script',
@@ -229,14 +234,9 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
       },
     ],
 
-    'vuepress-plugin-baidu-autopush', // 百度自动推送
+    'mathjax', // 数学公式
+    'tabs',
 
-    [
-      'vuepress-plugin-baidu-tongji', // 百度统计
-      {
-        hm: baiduCode,
-      },
-    ],
 
     // 全文搜索。 ⚠️注意：此插件会在打开网站时多加载部分js文件用于搜索，导致初次访问网站变慢。如在意初次访问速度的话可以不使用此插件！（推荐：vuepress-plugin-thirdparty-search）
     // 'fulltext-search',
