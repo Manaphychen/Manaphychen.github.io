@@ -61,23 +61,8 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         text: '技术书籍',
         link: '/books/',
         items: [
-          {
-            text: '《高效java》',
-            link: '/books/',
-            items: [
-              {text: '创建和销毁对象', link: '/Chapter-2/Introduction.html'},
-              {text: '对象的通用方法', link: '/Chapter-3/Introduction.html'},
-              {text: '类和接口', link: '/Chapter-4/Introduction.html'},
-              {text: '泛型', link: '/Chapter-5/Introduction.html'},
-              {text: '枚举和注解', link: '/Chapter-6/Introduction.html'},
-              {text: 'λ表达式和流', link: '/Chapter-7/Introduction.html'},
-              {text: '方法', link: '/Chapter-8/Introduction.html'},
-              {text: '通用程序设计', link: '/Chapter-9/Introduction.html'},
-              {text: '异常', link: '/Chapter-10/Introduction.html'},
-              {text: '并发', link: '/Chapter-11/Introduction.html'},
-              {text: '序列化', link: '/Chapter-12/Introduction.html'},
-            ]
-          },
+          {text: '《高效java》', link: '/Chapter-2/Introduction.html'},
+          {text: '《Hello 算法》', link: '/algorithm/introduction/'},
           {text: '《ES6tutorial》', link: '/es6/introduction/'},
         ],
       },
