@@ -58,22 +58,22 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         ],
       },
       {
+        text: '运维',
+        link: '/ops/',
+        items: [
+          {text: 'Linux常用指令', link: '/linux/command/'},
+          {text: 'docker', link: '/docker/docker/'},
+          {text: 'Nginx', link: '/nginx/'},
+          {text: 'Git', link: '/git/'},
+        ],
+      },
+      {
         text: '技术书籍',
         link: '/books/',
         items: [
           {text: '《高效java》', link: '/Chapter-2/Introduction.html'},
           {text: '《Hello 算法》', link: '/algorithm/introduction/'},
           {text: '《ES6tutorial》', link: '/es6/introduction/'},
-        ],
-      },
-      {
-        text: '更多',
-        link: '/more/',
-        items: [
-          {text: '学习', link: '/pages/f2a556/'},
-          {text: '面试', link: '/pages/aea6571b7a8bae86/'},
-          {text: '心情杂货', link: '/pages/2d615df9a36a98ed/'},
-          {text: '实用技巧', link: '/pages/baaa02/'},
         ],
       },
       {text: '关于', link: '/about/'},
