@@ -5,7 +5,6 @@ import {defineConfig4CustomTheme, UserPlugins} from 'vuepress/config'
 import {VdoingThemeConfig} from 'vuepress-theme-vdoing/types'
 // @ts-ignore
 import dayjs from 'dayjs'
-import baiduCode from './config/baiduCode' // 百度统计hm码
 import htmlModules from './config/htmlModules' // 自定义插入的html块
 
 const DOMAIN_NAME = 'manaphy.cc' // 域名 (不带https)
@@ -35,15 +34,31 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         items: [
           // 说明：以下所有link的值只是在相应md文件头部定义的永久链接（不是什么特殊编码）。另外，注意结尾是有斜杠的
           {
+            text: '常用资料',
+            items: [
+              {text: 'JUC', link: '/java/juc/'},
+              {text: 'Spring参数校验', link: '/springboot/jsr/'},
+              {text: 'Spring6', link: '/spring/spring6/'},
+              {text: 'SpringMVC', link: '/spring/mvc/'},
+            ]
+          },
+          {
             text: '设计模式',
             items: [
               {text: '设计模式汇总', link: '/design_pattern/summary/'},
+              {text: '单例模式', link: '/design_pattern/singleton/'},
+              {text: '策略模式', link: '/design_pattern/strategy/'},
+              {text: '适配器模式', link: '/design_pattern/adapter/'},
             ],
           },
           {
             text: 'JVM虚拟机',
             items: [
               {text: 'JVM内存', link: '/jvm/index/'},
+              {text: '虚拟机栈', link: '/jvm/stack/'},
+              {text: '堆', link: '/jvm/heap/'},
+              {text: '堆', link: '/jvm/heap/'},
+              {text: '方法区', link: '/jvm/method_area/'},
             ],
           },
         ],
