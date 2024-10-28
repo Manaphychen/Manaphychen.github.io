@@ -57,8 +57,8 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
               {text: 'JVM内存', link: '/jvm/index/'},
               {text: '虚拟机栈', link: '/jvm/stack/'},
               {text: '堆', link: '/jvm/heap/'},
-              {text: '堆', link: '/jvm/heap/'},
               {text: '方法区', link: '/jvm/method_area/'},
+              {text: 'StringTable', link: '/jvm/string_table'},
             ],
           },
         ],
@@ -214,14 +214,6 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
       },
     ],
     ['meta', {name: 'theme-color', content: '#11a8cd'}], // 移动浏览器主题颜色
-    // [
-    //   'script',
-    //   {
-    //     'data-ad-client': 'ca-pub-7828333725993554',
-    //     async: 'async',
-    //     src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
-    //   },
-    // ], // 网站关联Google AdSense 与 html格式广告支持（你可以去掉）
   ],
 
 
