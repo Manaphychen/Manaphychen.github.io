@@ -77,7 +77,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         link: '/ops/',
         items: [
           {text: 'Linux常用指令', link: '/linux/command/'},
-          {text: 'docker', link: '/docker/docker/'},
+          {text: 'Docker', link: '/docker/docker/'},
           {text: 'Nginx', link: '/nginx/'},
           {text: 'Git', link: '/git/'},
         ],
