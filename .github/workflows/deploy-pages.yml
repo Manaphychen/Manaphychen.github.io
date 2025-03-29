@@ -1,41 +1,36 @@
 name: Deploy Pages
 
+# 在master分支发生push事件时触发。
 on:
-  # 推送时执行
   push:
-    branches: [master]
+    branches:
+      - master
+
+env: # 设置环境变量
+  TZ: Asia/Shanghai # 时区（设置时区可使页面中的`最近更新时间`使用该时区时间）
 
 jobs:
-  # 任务1: 部署 GitHub Pages
   deploy-github-pages:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
     steps:
       # 1、检出源码
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v1
+      - name: Use Node.js 18
+        uses: actions/setup-node@v2 # 作用：安装nodejs
         with:
-          # 默认只拉取分支最近一次的 commit，可能会导致一些文章的 GitInfo 变量无法获取，设为 0 代表拉取所有分支所有提交
-          fetch-depth: 0
-      # 2、配置 Git
-      # 主要是 quotePath，默认情况下，文件名包含中文时，git 会使用引号把文件名括起来，这会导致 action 中无法读取 :GitInfo 变量
-      - name: Git Configuration
-        run: |
-          git config --global core.quotePath false
-          git config --global core.autocrlf false
-#          git config --global core.safecrlf true
-#          git config --global core.ignorecase false
+          node-version: 18
+          cache: pnpm
       # 3、安装 PNPM
       - name: Setup PNPM
         uses: pnpm/action-setup@v2
         with:
           version: latest
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          registry-url: https://registry.npmjs.org
-          cache: pnpm
 
       - name: Deploy to gh-pages
         run: |
