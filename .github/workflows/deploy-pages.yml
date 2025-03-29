@@ -1,58 +1,50 @@
-name: CI
+name: Deploy Pages
 
 on:
+  # 推送时执行
   push:
-    branches:
-      - master
-
-env:
-  TZ: Asia/Shanghai
+    branches: [master]
 
 jobs:
-  build:
+  # 任务1: 部署 GitHub Pages
+  deploy-github-pages:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x]
-
     steps:
+      # 1、检出源码
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
-
+          # 默认只拉取分支最近一次的 commit，可能会导致一些文章的 GitInfo 变量无法获取，设为 0 代表拉取所有分支所有提交
+          fetch-depth: 0
+      # 2、配置 Git
+      # 主要是 quotePath，默认情况下，文件名包含中文时，git 会使用引号把文件名括起来，这会导致 action 中无法读取 :GitInfo 变量
+      - name: Git Configuration
+        run: |
+          git config --global core.quotePath false
+          git config --global core.autocrlf false
+          git config --global core.safecrlf true
+          git config --global core.ignorecase false
+      # 3、安装 PNPM
       - name: Setup PNPM
         uses: pnpm/action-setup@v2
         with:
-          version: 9.7.1
-          run_install: false  # 重要：不要自动运行 pnpm install
-
+          version: latest
+      # 4、安装 Node 环境
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+      # 5、安装依赖
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build-and-deploy
-        run: |
-          remote_addr=`git remote get-url --push origin`
-          commit_info=`git describe --all --always --long`
-          user_name=`git log -1 --pretty=format:'%an'`
-          user_email=`git log -1 --pretty=format:'%ae'`
-          deploy_branch=gh-pages
-          
-          pnpm run build
-          
-          cd docs/.vuepress/dist
-          git config --global init.defaultBranch $deploy_branch
-          git init
-          git config user.name ${user_name}
-          git config user.email ${user_email}
-          git add -A
-          git commit -m "auto deploy, $commit_info"
-          remote_addr=`echo $remote_addr | awk -F'://' '{print $2}'`
-          remote_addr=https://${user_name}:${{secrets.GITHUB_TOKEN}}@${remote_addr}
-          git remote add origin ${remote_addr}
-          git push origin HEAD:$deploy_branch --force
+        run: pnpm i --frozen-lockfile
+      # 6、打包
+      - name: Build
+        run: pnpm build
+      # 7、部署 GitHub Pages
+      - name: Deploy GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          BRANCH: pages
+          FOLDER: docs/.vitepress/dist
