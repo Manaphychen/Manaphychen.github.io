@@ -1,56 +1,41 @@
 name: Deploy Pages
 
+# 在master分支发生push事件时触发。
 on:
   push:
     branches:
       - master
 
-env:
-  TZ: Asia/Shanghai
-
-permissions: # 添加权限配置
+permissions:
   contents: write
-  pages: write
-  id-token: write
+
+env: # 设置环境变量
+  TZ: Asia/Shanghai # 时区（设置时区可使页面中的`最近更新时间`使用该时区时间）
 
 jobs:
-  build:
+  deploy-github-pages:
+    name: 开始部署
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
 
-      - name: Setup PNPM
+    steps:
+      - name: 检出源码
+        uses: actions/checkout@v3
+      - name: 安装 PNPM
         uses: pnpm/action-setup@v2
         with:
           version: latest
-
-      - name: Setup Node
+      - name: 安装 Node 环境
         uses: actions/setup-node@v3
         with:
           node-version: 18
+          registry-url: https://registry.npmjs.org
           cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build
+      - name: 安装依赖
+        run: pnpm i --frozen-lockfile
+      - name: 打包
         run: pnpm build
-
-      - name: Create .nojekyll
-        run: touch docs/.vitepress/dist/.nojekyll
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+      - name: 部署 GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          path: docs/.vitepress/dist
+          BRANCH: pages
+          FOLDER: docs/.vitepress/dist
