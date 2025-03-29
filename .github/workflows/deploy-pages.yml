@@ -29,23 +29,23 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: latest
-      # 4、安装 Node 环境
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
           registry-url: https://registry.npmjs.org
           cache: pnpm
-      # 5、安装依赖
-      - name: Install dependencies
-        run: pnpm i --frozen-lockfile
-      # 6、打包
-      - name: Build
-        run: |
-          pnpm build
 
       - name: Deploy to gh-pages
         run: |
+          remote_addr=`git remote get-url --push origin`
+          commit_info=`git describe --all --always --long`
+          user_name=`git log -1 --pretty=format:'%an'`
+          user_email=`git log -1 --pretty=format:'%ae'`
+          deploy_branch=gh-pages
+          pnpm i
+          pnpm build
           cd docs/.vitepress/dist
           git config --global init.defaultBranch $deploy_branch
           git init
