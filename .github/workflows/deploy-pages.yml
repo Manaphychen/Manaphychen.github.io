@@ -1,23 +1,25 @@
 name: Deploy Pages
 
-# 在master分支发生push事件时触发。
 on:
   push:
     branches:
       - master
 
-env: # 设置环境变量
-  TZ: Asia/Shanghai # 时区（设置时区可使页面中的`最近更新时间`使用该时区时间）
+env:
+  TZ: Asia/Shanghai
+
+permissions: # 添加权限配置
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
-  deploy-github-pages:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      # 1、检出源码
       - name: Checkout
-        uses: actions/checkout@v1
-      # 3、安装 PNPM
+        uses: actions/checkout@v4
+
       - name: Setup PNPM
         uses: pnpm/action-setup@v2
         with:
@@ -27,29 +29,28 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          registry-url: https://registry.npmjs.org
           cache: pnpm
-          CLEAN: false
-          DISABLE_JEKYLL: true
 
-      - name: Deploy to gh-pages
-        run: |
-          remote_addr=`git remote get-url --push origin`
-          commit_info=`git describe --all --always --long`
-          user_name=`git log -1 --pretty=format:'%an'`
-          user_email=`git log -1 --pretty=format:'%ae'`
-          deploy_branch=gh-pages
-          pnpm i
-          pnpm build
-          cd docs/.vitepress/dist
-          touch .nojekyll
-          git config --global init.defaultBranch $deploy_branch
-          git init
-          git config user.name ${user_name}
-          git config user.email ${user_email}
-          git add -A
-          git commit -m "auto deploy, $commit_info"
-          remote_addr=`echo $remote_addr | awk -F'://' '{print $2}'`
-          remote_addr=https://${user_name}:${{secrets.GITHUB_TOKEN}}@${remote_addr}
-          git remote add origin ${remote_addr}
-          git push origin HEAD:$deploy_branch --force # 推送到github $deploy_branch分支
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
+
+      - name: Create .nojekyll
+        run: touch docs/.vitepress/dist/.nojekyll
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: docs/.vitepress/dist
