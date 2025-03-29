@@ -8,8 +8,7 @@ export const markdown: MarkdownOptions = {
     light: 'github-light',
     dark: 'github-dark-dimmed'
   },
-  // 关闭 MD046 格式检查（针对你的四个花括号问题）
-  anchor: { permalink: false },
+  anchor: { slugify: (s) => encodeURIComponent(s) }
   // lineNumbers: true, // 启用行号
   config: (md) => {
     md.use(mathjax3);

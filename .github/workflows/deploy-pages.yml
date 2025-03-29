@@ -42,8 +42,9 @@ jobs:
       # 6、打包
       - name: Build
         run: |
+          rm -rf docs/.vitepress/dist/_config.yml
           pnpm build
-          touch docs/.vitepress/dist/.nojekyll
+          touch docs/.vitepress/dist/.nojekyll && echo > docs/.vitepress/dist/.nojekyll
 
       - name: Deploy GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
