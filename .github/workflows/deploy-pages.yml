@@ -40,6 +40,8 @@ jobs:
           node-version: 18
           registry-url: https://registry.npmjs.org
           cache: pnpm
+          CLEAN: false
+          DISABLE_JEKYLL: true
 
       - name: Deploy to gh-pages
         run: |
@@ -61,6 +63,3 @@ jobs:
           remote_addr=https://${user_name}:${{secrets.GITHUB_TOKEN}}@${remote_addr}
           git remote add origin ${remote_addr}
           git push origin HEAD:$deploy_branch --force # 推送到github $deploy_branch分支
-        with:
-          CLEAN: false
-          DISABLE_JEKYLL: true
