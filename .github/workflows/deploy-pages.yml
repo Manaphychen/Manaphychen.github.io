@@ -18,18 +18,22 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3  # 升级到更新的 checkout 版本
+        uses: actions/checkout@v3
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'          # 添加 pnpm 缓存
+          cache: 'pnpm'
 
       - name: Setup PNPM
         uses: pnpm/action-setup@v2
         with:
-          version: 8             # 指定 pnpm 版本，根据项目需要调整
+          version: 9.7.1
+          run_install: false  # 重要：不要自动运行 pnpm install
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Build-and-deploy
         run: |
@@ -39,7 +43,6 @@ jobs:
           user_email=`git log -1 --pretty=format:'%ae'`
           deploy_branch=gh-pages
           
-          pnpm install --frozen-lockfile  # 类似 yarn --frozen-lockfile
           pnpm run build
           
           cd docs/.vuepress/dist
