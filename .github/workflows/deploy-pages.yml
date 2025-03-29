@@ -45,8 +45,6 @@ jobs:
           pnpm build
 
       - name: Deploy to gh-pages
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用内置 Token [7](@ref)
         run: |
           cd docs/.vitepress/dist
           git config --global init.defaultBranch $deploy_branch
