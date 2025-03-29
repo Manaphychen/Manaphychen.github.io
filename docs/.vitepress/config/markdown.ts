@@ -8,7 +8,6 @@ export const markdown: MarkdownOptions = {
     light: 'github-light',
     dark: 'github-dark-dimmed'
   },
-  anchor: { slugify: (s) => encodeURIComponent(s) },
   // lineNumbers: true, // 启用行号
   config: (md) => {
     md.use(mathjax3);

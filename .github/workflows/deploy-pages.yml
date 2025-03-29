@@ -42,14 +42,20 @@ jobs:
       # 6、打包
       - name: Build
         run: |
-          rm -rf docs/.vitepress/dist/_config.yml
           pnpm build
-          touch docs/.vitepress/dist/.nojekyll && echo > docs/.vitepress/dist/.nojekyll
 
-      - name: Deploy GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          BRANCH: pages
-          FOLDER: docs/.vitepress/dist
-          CLEAN: true  # 建议保持清理避免残留文件
-          DISABLE_JEKYLL: true
+      - name: Deploy to gh-pages
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用内置 Token [7](@ref)
+        run: |
+          cd docs/.vitepress/dist
+          git config --global init.defaultBranch $deploy_branch
+          git init
+          git config user.name ${user_name}
+          git config user.email ${user_email}
+          git add -A
+          git commit -m "auto deploy, $commit_info"
+          remote_addr=`echo $remote_addr | awk -F'://' '{print $2}'`
+          remote_addr=https://${user_name}:${{secrets.GITHUB_TOKEN}}@${remote_addr}
+          git remote add origin ${remote_addr}
+          git push origin HEAD:$deploy_branch --force # 推送到github $deploy_branch分支
