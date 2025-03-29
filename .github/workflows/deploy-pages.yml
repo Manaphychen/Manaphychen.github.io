@@ -39,3 +39,4 @@ jobs:
         with:
           BRANCH: pages
           FOLDER: docs/.vitepress/dist
+          DISABLE_JEKYLL: true
