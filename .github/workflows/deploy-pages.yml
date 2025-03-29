@@ -52,3 +52,6 @@ jobs:
         with:
           BRANCH: pages
           FOLDER: docs/.vitepress/dist
+          # 添加以下两行配置
+          CLEAN: false
+          DISABLE_JEKYLL: true
