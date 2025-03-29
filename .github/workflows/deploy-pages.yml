@@ -8,6 +8,7 @@ on:
 
 env:
   TZ: Asia/Shanghai
+  NODE_OPTIONS: '--max-old-space-size=4096'
 
 jobs:
   # 任务1: 部署 GitHub Pages
