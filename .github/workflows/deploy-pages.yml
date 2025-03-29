@@ -22,8 +22,8 @@ jobs:
         run: |
           git config --global core.quotePath false
           git config --global core.autocrlf false
-          git config --global core.safecrlf true
-          git config --global core.ignorecase false
+#          git config --global core.safecrlf true
+#          git config --global core.ignorecase false
       # 3、安装 PNPM
       - name: Setup PNPM
         uses: pnpm/action-setup@v2
@@ -41,13 +41,14 @@ jobs:
         run: pnpm i --frozen-lockfile
       # 6、打包
       - name: Build
-        run: pnpm build
-      # 7、部署 GitHub Pages
+        run: |
+          pnpm build
+          touch docs/.vitepress/dist/.nojekyll
+
       - name: Deploy GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           BRANCH: pages
           FOLDER: docs/.vitepress/dist
-          # 添加以下两行配置
-          CLEAN: false
+          CLEAN: true  # 建议保持清理避免残留文件
           DISABLE_JEKYLL: true
