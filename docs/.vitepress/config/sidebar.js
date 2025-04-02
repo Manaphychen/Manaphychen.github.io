@@ -1,10 +1,9 @@
-import type { DefaultTheme } from 'vitepress';
 import fg from 'fast-glob';
 import matter from 'gray-matter';
-import { getChineseZodiac, getChineseZodiacAlias } from '../theme/utils.ts';
+import { getChineseZodiac, getChineseZodiacAlias } from '../theme/utils.js';
 const sync = fg.sync;
 
-export const sidebar: DefaultTheme.Config['sidebar'] = {
+export const sidebar = {
   '/jvm/': getItems("jvm"),
   '/database/': getItems("database"),
   '/java/': getItems("java"),
@@ -21,11 +20,11 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
  * @param path 扫描基础路径
  * @returns {DefaultTheme.SidebarItem[]}
  */
-function getItemsByDate (path: string) {
+function getItemsByDate(path) {
   // 侧边栏年份分组数组
-  let yearGroups: DefaultTheme.SidebarItem[] = [];
+  let yearGroups = [];
   // 置顶数组
-  let topArticleItems: DefaultTheme.SidebarItem[] = [];
+  let topArticleItems = [];
 
   // 1.获取所有年份目录
   sync(`docs/${path}/*`, {
@@ -34,7 +33,7 @@ function getItemsByDate (path: string) {
   }).forEach(({ name }) => {
     let year = name;
     // 年份数组
-    let articleItems: DefaultTheme.SidebarItem[] = [];
+    let articleItems = [];
 
     // 2.获取所有月份目录
     sync(`docs/${path}/${year}/*`, {
@@ -109,13 +108,12 @@ function getItemsByDate (path: string) {
  * courses/mybatis/01-MyBatis基础/01-xxx.md
  *
  * @param path 扫描基础路径
- * @returns {DefaultTheme.SidebarItem[]}
  */
-function getItems (path: string) {
+function getItems(path) {
   // 侧边栏分组数组
-  let groups: DefaultTheme.SidebarItem[] = [];
+  let groups = [];
   // 侧边栏分组下标题数组
-  let items: DefaultTheme.SidebarItem[] = [];
+  let items = [];
   let total = 0;
   // 当分组内文章数量少于 2 篇或文章总数显示超过 20 篇时，自动折叠分组
   const groupCollapsedSize = 2;

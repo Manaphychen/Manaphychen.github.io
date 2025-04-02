@@ -67,50 +67,74 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-  import { reactive, toRefs, onMounted } from 'vue';
-  import { useData } from 'vitepress';
-  import md5 from 'blueimp-md5';
-  import dayjs from 'dayjs';
-  import 'dayjs/locale/zh-cn';
-  import relativeTime from 'dayjs/plugin/relativeTime';
-  import { goToLink } from '../utils.ts';
+<script setup>
+import { reactive, toRefs, onMounted } from 'vue';
+import { useData } from 'vitepress';
+import md5 from 'blueimp-md5';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import { goToLink } from '../utils.js';
 
-  dayjs.extend(relativeTime);
-  dayjs.locale('zh-cn');
+// 初始化 dayjs 配置
+dayjs.extend(relativeTime);
+dayjs.locale('zh-cn');
 
-  // 定义文章属性
-  const props = defineProps({
-    article: Object,
-    showCategory: {
-      type: Boolean,
-      default: true,
-    },
-  });
+// 定义组件 props
+const props = defineProps({
+  article: {
+    type: Object,
+    default: () => ({})
+  },
+  showCategory: {
+    type: Boolean,
+    default: true
+  }
+});
 
-  // 初始化文章元数据信息
-  const { theme, page } = useData();
-  const data = reactive({
-    isOriginal: props.article?.isOriginal ?? true,
-    author: props.article?.author ?? theme.value.articleMetadataConfig.author,
-    authorLink: props.article?.authorLink ?? theme.value.articleMetadataConfig.authorLink,
-    showViewCount: theme.value.articleMetadataConfig?.showViewCount ?? false,
-    viewCount: 0,
-    date: new Date(props.article.date),
-    categories: props.article?.categories ?? [],
-    tags: props.article?.tags ?? [],
-    showCategory: props.showCategory
-  });
-  const { isOriginal, author, authorLink, showViewCount, viewCount, date, toDate, categories, tags, showCategory } = toRefs(data);
+// 获取主题配置和页面数据
+const { theme, page } = useData();
 
-  if (data.showViewCount) {
-    // 记录并获取文章阅读数（使用文章标题 + 发布时间生成 MD5 值，作为文章的唯一标识）
-    onMounted(() => {
-      $api.getArticleViewCount(md5(props.article.title + props.article.date), location.href, function(viewCountData) {
+// 响应式数据对象
+const data = reactive({
+  isOriginal: props.article?.isOriginal ?? true,
+  author: props.article?.author ?? theme.value.articleMetadataConfig?.author,
+  authorLink: props.article?.authorLink ?? theme.value.articleMetadataConfig?.authorLink,
+  showViewCount: theme.value.articleMetadataConfig?.showViewCount ?? false,
+  viewCount: 0,
+  date: new Date(props.article.date),
+  categories: props.article?.categories ?? [],
+  tags: props.article?.tags ?? [],
+  showCategory: props.showCategory
+});
+
+// 解构响应式数据
+const {
+  isOriginal,
+  author,
+  authorLink,
+  showViewCount,
+  viewCount,
+  date,
+  categories,
+  tags,
+  showCategory
+} = toRefs(data);
+
+// 生命周期钩子 - 组件挂载后执行
+if (data.showViewCount) {
+  onMounted(() => {
+    // 生成文章唯一标识
+    const articleId = md5(props.article.title + props.article.date);
+
+    // 获取文章阅读量统计
+    if (window.$api) {
+      window.$api.getArticleViewCount(articleId, location.href, (viewCountData) => {
         data.viewCount = viewCountData;
       });
-    });
-  }
+    }
+  });
+}
 </script>
 
 <style scoped>

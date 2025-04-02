@@ -1,10 +1,8 @@
-import type { DefaultTheme } from 'vitepress';
-import { nav } from './nav';
-import { sidebar } from './sidebar';
-import { algoliaSearchOptions } from './search/algolia-search';
-import { localSearchOptions } from './search/local-search';
+import { nav } from './nav.js';
+import { sidebar } from './sidebar.js';
+import { localSearchOptions } from './search/local-search.js';
 
-export const themeConfig: DefaultTheme.Config = {
+export const themeConfig = {
   nav, // 导航栏配置
   sidebar, // 侧边栏配置
 
@@ -62,7 +60,6 @@ export const themeConfig: DefaultTheme.Config = {
   ],
 
   // 自定义扩展: 文章元数据配置
-  // @ts-ignore
   articleMetadataConfig: {
     author: 'Manaphy', // 文章全局默认作者名称
     authorLink: '/about/me', // 点击作者名时默认跳转的链接

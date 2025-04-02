@@ -1,32 +1,9 @@
 import { defineConfig } from 'vitepress';
 import { withMermaid } from 'vitepress-plugin-mermaid';
-import { metaData } from './config/constants';
-import { head } from './config/head';
-import { markdown } from './config/markdown';
-import { themeConfig } from './config/theme';
-
-export default withMermaid(
-  defineConfig({
-    lang: metaData.lang,
-    title: metaData.title,
-    description: metaData.description,
-
-    ignoreDeadLinks: true,
-    cleanUrls: true,
-    lastUpdated: true, // 显示最后更新时间
-
-    head, // <head>内标签配置
-    markdown: markdown, // Markdown配置
-    vue: {
-      template: {
-        compilerOptions: {
-          isCustomElement: (tag) => customElements.includes(tag),
-        },
-      },
-    },
-    themeConfig, // 主题配置
-  }),
-);
+import { metaData } from './config/constants.js';
+import { head } from './config/head.js';
+import { markdown } from './config/markdown.js';
+import { themeConfig } from './config/theme.js';
 
 const customElements = [
   'mjx-container',
@@ -117,3 +94,26 @@ const customElements = [
   'annotation',
   'annotation-xml',
 ];
+
+export default withMermaid(
+  defineConfig({
+    lang: metaData.lang,
+    title: metaData.title,
+    description: metaData.description,
+
+    ignoreDeadLinks: true,
+    cleanUrls: true,
+    lastUpdated: true,
+
+    head,
+    markdown: markdown,
+    vue: {
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => customElements.includes(tag),
+        },
+      },
+    },
+    themeConfig,
+  })
+);

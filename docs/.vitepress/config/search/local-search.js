@@ -1,6 +1,4 @@
-import type { LocalSearchOptions } from 'vitepress';
-
-export const localSearchOptions: LocalSearchOptions = {
+export const localSearchOptions = {
   locales: {
     root: {
       translations: {
