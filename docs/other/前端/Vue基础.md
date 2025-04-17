@@ -94,7 +94,7 @@ new Vue({
 </script>
 ```
 ## 3.数据绑定
-::: note 介绍
+::: info 介绍
 Vue中有2种数据绑定的方式
 
 1.单向绑定(v-bind)：数据只能从data流向页面。
@@ -130,7 +130,7 @@ new Vue({
 </script>
 ```
 ## 4.el与data的两种写法
-::: note 介绍
+::: info 介绍
 **1.el有2种写法**
 
 1. new Vue时候配置el属性
@@ -407,7 +407,7 @@ const vm = new Vue({
 ###  键盘事件
 **1.Vue中常用的按键别名**
 
-::: note 介绍
+::: info 介绍
 
 回车 => enter
 

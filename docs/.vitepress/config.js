@@ -106,7 +106,9 @@ export default withMermaid(
     lastUpdated: true,
 
     head,
-    markdown: markdown,
+    markdown: {
+      math: true
+    },
     vue: {
       template: {
         compilerOptions: {
