@@ -2,11 +2,11 @@ export const nav = [
   {
     text: '后端',
     items: [
-      { text: 'Spring', link: 'java/Spring/01.Spring6', activeMatch: '/java/Spring/' },
+      { text: 'Java相关', link: '/java/Java基础/01.IO流', activeMatch: '/java/Java基础/' },
       { text: '数据库', link: '/database/MySQL/00.MySQL基础', activeMatch: '/database/MySQL/' },
       { text: 'JVM', link: 'jvm/01.JVM内存/00.JVM与Java体系结构', activeMatch: '/jvm/01.JVM内存/' }
     ],
-    activeMatch: '/courses/'
+    activeMatch: '/java/'
   },
   {
     text: '运维',
