@@ -28,3 +28,4 @@ cache/
 /src/node/shared.ts
 pnpm-global
 TODOs.md
+package-lock.json
