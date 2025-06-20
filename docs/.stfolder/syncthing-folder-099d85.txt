@@ -1,0 +1,5 @@
+# This directory is a Syncthing folder marker.
+# Do not delete.
+
+folderID: bxvad-z42wa
+created: 2025-06-15T11:23:55+08:00
