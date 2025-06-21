@@ -18,6 +18,7 @@ coverage/
 .idea
 .vscode
 .obsidian
+.stfolder
 
 # Temp files
 cache/
@@ -29,3 +30,6 @@ cache/
 pnpm-global
 TODOs.md
 package-lock.json
+yarn.lock
+pnpm-lock.yaml
+dist.zip
