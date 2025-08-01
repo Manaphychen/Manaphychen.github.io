@@ -1,9 +1,10 @@
-import { defineConfig } from 'vitepress';
-import { withMermaid } from 'vitepress-plugin-mermaid';
-import { metaData } from './config/constants.js';
-import { head } from './config/head.js';
-import { markdown } from './config/markdown.js';
-import { themeConfig } from './config/theme.js';
+import {defineConfig} from 'vitepress';
+import {metaData} from './config/constants.js';
+import {head} from './config/head.js';
+import {themeConfig} from './config/theme.js';
+import fg from 'fast-glob'
+import matter from 'gray-matter'
+
 
 const customElements = [
   'mjx-container',
@@ -95,8 +96,30 @@ const customElements = [
   'annotation-xml',
 ];
 
-export default withMermaid(
-  defineConfig({
+const rewrites = {}
+const pages = await fg('**/*.md', {ignore: ['node_modules/**']})
+const usedPermalinks = new Set()
+pages.map((page, index) => {
+  const {permalink} = matter.read(page).data
+  if (permalink && typeof permalink === 'string' && permalink.trim() !== '' && permalink !== '/') {
+    // 移除开头的斜杠（如果有的话），因为 rewrites 不需要
+    let cleanPermalink = permalink.startsWith('/') ? permalink.slice(1) : permalink
+    // 验证permalink格式
+    if (!cleanPermalink || cleanPermalink === '/') {
+      console.warn(`[${index}] Invalid permalink for ${page}: "${permalink}"`)
+      return
+    }
+    // 检查重复
+    if (usedPermalinks.has(cleanPermalink)) {
+      console.warn(`[${index}] Duplicate permalink "${cleanPermalink}" for ${page}`)
+      return
+    }
+    usedPermalinks.add(cleanPermalink)
+  }
+
+})
+
+export default defineConfig({
     lang: metaData.lang,
     title: metaData.title,
     description: metaData.description,
@@ -124,5 +147,5 @@ export default withMermaid(
       },
     },
     themeConfig,
-  })
-);
+  }
+)

@@ -1,19 +1,5 @@
 <template>
   <div class="meta-wrapper">
-    <div class="meta-item original">
-      <a-tag v-if="isOriginal" color="orangered" title="原创文章">
-        <template #icon>
-          <icon-trophy />
-        </template>
-        原创
-      </a-tag>
-      <a-tag v-else color="arcoblue" title="转载文章">
-        <template #icon>
-          <icon-share-alt />
-        </template>
-        转载
-      </a-tag>
-    </div>
     <div class="meta-item">
       <span class="meta-icon author">
         <svg role="img" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">

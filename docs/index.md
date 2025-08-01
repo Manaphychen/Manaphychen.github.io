@@ -11,13 +11,6 @@ hero:
   image:
     src: /logo.png
     alt: Logo
-  actions:
-    - theme: brand
-      text: 快速开始
-      link: /categories/issues/index
-    - theme: alt
-      text: 在 GitHub 查看
-      link: https://github.com/Manaphychen/Manaphychen.github.io
 
 features:
   - icon:

@@ -16,9 +16,4 @@ export default defineConfig({
   ssr: {
     noExternal: ['@arco-design/web-vue'] // SSR 不外部化处理
   },
-  resolve: {
-    alias: {
-      'mermaid': 'mermaid/dist/mermaid.esm.mjs', // 解决 Mermaid ESM 兼容性问题
-    },
-  },
 });

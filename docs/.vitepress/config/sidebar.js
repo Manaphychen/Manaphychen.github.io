@@ -10,6 +10,7 @@ export const sidebar = {
   '/book/': getItems("book"),
   '/ops/': getItems("ops"),
   '/other/': getItems("other"),
+  '/sex/': getItems("sex"),
 }
 
 /**
